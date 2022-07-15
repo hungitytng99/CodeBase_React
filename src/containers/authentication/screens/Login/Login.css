@@ -1,0 +1,229 @@
+:focus {
+    outline: none;
+}
+
+/* necessary to give position: relative to parent. */
+
+.input-effect {
+    margin: 10px;
+    position: relative;
+}
+
+.effect {
+    border: 1px solid #ccc;
+    padding: 14px 20px;
+    transition: 0.4s;
+    background: transparent;
+    border-radius: 5px;
+    width: 100%;
+    height: 50px;
+}
+
+.effect ~ .focus-border:before,
+.effect ~ .focus-border:after {
+    content: '';
+    position: absolute;
+    top: -1px;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background-color: #3399ff;
+    transition: 0.4s;
+}
+
+.effect ~ .focus-border:after {
+    top: auto;
+    bottom: 0;
+}
+
+.effect ~ .focus-border i:before,
+.effect ~ .focus-border i:after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 2px;
+    height: 0;
+    background-color: #3399ff;
+    transition: 0.4s;
+}
+
+.effect ~ .focus-border i:after {
+    left: auto;
+    right: 0;
+}
+
+.effect:focus ~ .focus-border:before,
+.effect:focus ~ .focus-border:after {
+    left: 0;
+    width: 100%;
+    transition: 0.4s;
+}
+
+.effect:focus ~ .focus-border i:before,
+.effect:focus ~ .focus-border i:after {
+    top: -1px;
+    height: 100%;
+    transition: 0.4s;
+}
+
+.effect ~ label {
+    position: absolute;
+    left: 14px;
+    width: 90%;
+    top: 16px;
+    color: rgb(139, 134, 134);
+    transition: 0.3s;
+    z-index: -1;
+    letter-spacing: 0.5px;
+}
+
+.effect:focus ~ label {
+    top: -8px;
+    left: 8px;
+    font-size: 12px;
+    color: #3399ff;
+    transition: 0.3s;
+    display: block;
+    background-color: white;
+    z-index: 10;
+    text-align: center;
+}
+
+.effect__pw--again:focus ~ label {
+    max-width: 136px;
+}
+
+.effect__pw:focus ~ label {
+    max-width: 80px;
+}
+
+.effect__email:focus ~ label {
+    max-width: 60px;
+}
+
+.is-flex-col {
+    display: flex;
+    flex-direction: column;
+}
+
+.auth__header--icon {
+    background-color: rgb(25, 118, 210);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin: 8px;
+}
+
+.auth__header--icon > svg {
+    width: 21px;
+    fill: #fff;
+}
+
+.auth__header--label {
+    font-size: 24px;
+    font-family: arial;
+}
+
+.auth__body {
+    margin-top: 16px;
+}
+
+.auth__footer--checkbox {
+    margin: 10px 12px;
+    margin-right: 5px;
+    border-radius: 50%;
+    transition: all 0.5s ease;
+    cursor: pointer;
+}
+
+.auth__box {
+    line-height: 45px;
+    height: 48px;
+    border-radius: 5px;
+    background-color: rgb(25, 118, 210);
+    font-size: 14px;
+    color: white;
+    text-transform: uppercase;
+    cursor: pointer;
+    outline: none;
+    border: none;
+    width: 400px;
+    margin: 15px 10px 10px 10px;
+}
+
+.ju-right {
+    justify-content: right;
+}
+
+.auth__redirect {
+    margin: 0 10px 48px;
+    line-height: 10px;
+    cursor: pointer;
+}
+
+.auth__redirect--link {
+    color: rgb(25, 118, 210);
+    text-decoration: underline;
+}
+
+.auth__footer--checkbox {
+    width: 18px;
+    height: 18px;
+}
+
+/*  */
+
+.auth__label {
+    margin-left: 10px;
+    font-weight: 500;
+}
+
+.auth__label.required:after {
+    content: ' *';
+    color: red;
+}
+
+.login {
+    width: 100%;
+    height: 100%;
+}
+
+.login__box {
+    display: flex;
+    margin-bottom: 110px;
+    background-color: #fff;
+    padding: 25px 15px 35px 15px;
+    border-radius: 8px;
+    box-shadow: rgba(0, 0, 0, 0.08) 0px 6px 16px -8px, rgba(0, 0, 0, 0.05) 0px 9px 28px 0px,
+        rgba(0, 0, 0, 0.03) 0px 12px 48px 16px;
+}
+
+.auth__form {
+    width: 420px;
+}
+
+.auth__form.--welcome {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 0px 20px;
+}
+
+.auth__welcome {
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+
+.auth__welcome-blockchain {
+    width: 50px;
+    margin-top: 12px;
+}
+
+.auth__error {
+    color: red;
+    margin: 0px 0px 3px 10px;
+}

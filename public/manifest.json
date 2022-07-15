@@ -1,0 +1,19 @@
+{
+    "short_name": "B4e",
+    "name": "Chữ ký số TOEIC",
+    "icons": [{
+            "src": "hust-logo.jpeg",
+            "type": "image/jpeg",
+            "sizes": "192x192"
+        },
+        {
+            "src": "hust-logo.jpeg",
+            "type": "image/jpeg",
+            "sizes": "512x512"
+        }
+    ],
+    "start_url": ".",
+    "display": "standalone",
+    "theme_color": "#000000",
+    "background_color": "#ffffff"
+}
