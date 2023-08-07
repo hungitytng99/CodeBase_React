@@ -1,15 +1,14 @@
-import { promiseMiddleware } from '@adobe/redux-saga-promise';
-import { applyMiddleware, compose, createStore } from 'redux';
-import createSagaMiddleware from 'redux-saga';
 import { routerMiddleware } from 'connected-react-router';
-import history from '~/helpers/history';
+import { applyMiddleware, compose, createStore } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import logger from 'redux-logger';
+import createSagaMiddleware from 'redux-saga';
+import history from '~/helpers/history';
 import createReducer from './reducers';
 import rootSaga from './saga';
+import monitorReducerEnhancer from './enhancers/monitorReducer';
 
 const sagaMiddleware = createSagaMiddleware();
-// const _routerMiddleware = routerMiddleware(history);
 function createSagaInjector(runSaga, rootSaga) {
     const injectedSagas = new Map();
 
@@ -24,34 +23,29 @@ function createSagaInjector(runSaga, rootSaga) {
     return injectSaga;
 }
 
-const store =
-    process.env.NODE_ENV === 'development'
-        ? createStore(
-              createReducer(),
-              {},
-              composeWithDevTools(
-                  applyMiddleware(
-                      routerMiddleware(history),
-                      promiseMiddleware,
-                      sagaMiddleware,
-                      logger,
+function configureStore(initialState = {}) {
+    const store =
+        process.env.NODE_ENV === 'development'
+            ? createStore(
+                  createReducer(),
+                  initialState,
+                  composeWithDevTools(
+                      applyMiddleware(routerMiddleware(history), sagaMiddleware, logger),
+                      monitorReducerEnhancer,
                   ),
-              ),
-          )
-        : createStore(
-              createReducer(),
-              {},
-              compose(
-                  applyMiddleware(routerMiddleware(history), promiseMiddleware, sagaMiddleware),
-              ),
-          );
+              )
+            : createStore(createReducer(), {}, compose(applyMiddleware(routerMiddleware(history), sagaMiddleware)));
 
-store.asyncReducers = {};
-store.injectReducer = (key, reducer) => {
-    store.asyncReducers[key] = reducer;
-    store.replaceReducer(createReducer(store.asyncReducers));
+    store.asyncReducers = {};
+    store.injectReducer = (key, asyncReducer) => {
+        store.asyncReducers[key] = asyncReducer;
+        store.replaceReducer(createReducer(store.asyncReducers));
+    };
+
+    store.injectSaga = createSagaInjector(sagaMiddleware.run, rootSaga);
     return store;
-};
+}
 
-store.injectSaga = createSagaInjector(sagaMiddleware.run, rootSaga);
+const store = configureStore();
+
 export default store;

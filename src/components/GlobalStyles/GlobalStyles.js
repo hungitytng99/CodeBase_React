@@ -1,8 +1,15 @@
 import PropTypes from 'prop-types';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import './GlobalStyles.sass';
 
 function GlobalStyles({ children }) {
-    return children;
+    return (
+        <div>
+            {children}
+            <ToastContainer />
+        </div>
+    );
 }
 
 GlobalStyles.propTypes = {

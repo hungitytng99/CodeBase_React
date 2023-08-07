@@ -1,11 +1,9 @@
-import React, { Suspense } from 'react';
-import './AuthLayout.sass';
-
 function AuthLayout({ children }) {
     return (
-        <>
+        <div>
+            <div>AuthLayout</div>
             <div className="auth-layout">{children}</div>
-        </>
+        </div>
     );
 }
 

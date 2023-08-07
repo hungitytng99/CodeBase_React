@@ -18,7 +18,6 @@ const appContext = require.context('src/containers/app', true, /route.js$/);
 const authenticationContext = require.context('src/containers/authentication', true, /route.js$/);
 
 export const appRoutes = getRoutesFromContainer(appContext);
-console.log('appRoutes: ', appRoutes);
 export const authenticationRoutes = getRoutesFromContainer(authenticationContext);
 
 export const listAppRoutes = appRoutes.map((item) => {
@@ -38,16 +37,10 @@ export const listAuthenticationRoutes = authenticationRoutes.map((item) => {
 });
 
 export const initModules = async (modules = [], container = 'app') => {
-    await Promise.all([
-        modules.map(async (item) => {
-            const [reducer, saga] = await Promise.all([
-                import(`src/containers/${container}/screens/${item.path}/reducer`),
-                import(`src/containers/${container}/screens/${item.path}/saga`),
-            ]);
-            store.injectReducer(item.key, reducer.default);
-            store.injectSaga(item.key, saga.default);
-        }),
-    ]);
-    // To ensure that modules in injected
-    await appDelay(100);
+    for (let module of modules) {
+        const saga = await import(`src/containers/${container}/screens/${module.path}/redux/saga`);
+        const reducer = await import(`src/containers/${container}/screens/${module.path}/redux/reducer`);
+        store.injectReducer(module.key, reducer.default);
+        store.injectSaga(module.key, saga.default);
+    }
 };

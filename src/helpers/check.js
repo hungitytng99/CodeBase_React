@@ -9,7 +9,7 @@ export const isJsonString = (str) => {
 
 export const isEmptyValue = (value) => {
     if (
-        value == '' ||
+        String(value) == '' ||
         value == null ||
         value == undefined ||
         JSON.stringify(value) == '{}' ||

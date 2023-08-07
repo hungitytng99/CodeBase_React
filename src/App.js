@@ -1,22 +1,16 @@
-import React, { lazy, Suspense, useEffect } from 'react';
-import { Switch, Route, Router, Redirect, useRouteMatch } from 'react-router-dom';
-import AppRoute from '~/containers/app/AppRoute';
-import AuthenticationRoute from '~/containers/authentication/AuthenticationRoute';
-import { notification, Spin } from 'antd';
-import history from '~/helpers/history';
-import { listAppRoutes, listAuthenticationRoutes } from '~/router';
 import { ConnectedRouter } from 'connected-react-router';
-import NotFound from '~/components/NotFound';
-import { useSelector } from 'react-redux';
-import { useDispatch } from 'react-redux';
-import { RESET_NOTIFY_STATE } from '~/redux/actions/notify';
+import { Suspense, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Redirect, Route, Switch } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import { REQUEST_STATE } from '~/app-configs';
 import AppLayout from '~/components/Layout/AppLayout/AppLayout';
-import AuthLayout from '~/components/Layout/AuthLayout/AuthLayout';
-import 'antd/dist/antd.css';
-
-console.debug('listAppRoutes =>', listAppRoutes);
-console.debug('listAuthenticationRoutes =>', listAuthenticationRoutes);
+import NotFound from '~/components/NotFound';
+import AppRoute from '~/containers/app/AppRoute';
+import AuthenticationRoute from '~/containers/authentication/AuthenticationRoute';
+import history from '~/helpers/history';
+import { RESET_NOTIFY_STATE } from '~/redux/actions/notify';
+import { listAppRoutes, listAuthenticationRoutes } from '~/router';
 
 function App() {
     const dispatch = useDispatch();
@@ -26,15 +20,27 @@ function App() {
 
     useEffect(() => {
         if (notify.requestState === REQUEST_STATE.SUCCESS) {
-            notification.success({
-                message: 'Thành công',
-                description: notify.message,
+            toast.success(notify?.message ?? 'Bạn đã thực hiện thành công', {
+                position: 'top-right',
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: 'light',
             });
             dispatch(RESET_NOTIFY_STATE());
         } else if (notify.requestState === REQUEST_STATE.ERROR) {
-            notification.error({
-                message: 'Thất bại',
-                description: notify?.message ?? 'Một lỗi đã xảy ra',
+            toast.error(notify?.message ?? 'Một lỗi đã xảy ra', {
+                position: 'top-right',
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: 'light',
             });
             dispatch(RESET_NOTIFY_STATE());
         }
@@ -42,7 +48,7 @@ function App() {
 
     return (
         <ConnectedRouter history={history}>
-            <Suspense fallback={<Spin />}>
+            <Suspense fallback={<div>Loading</div>}>
                 <Switch>
                     {listAppRoutes.map(({ layout, path, exactContainer = true }) => (
                         <Route
@@ -68,7 +74,6 @@ function App() {
                             path={path}
                             render={() => {
                                 let RouteLayout = AppLayout;
-                                console.log('layout: ', layout);
                                 if (layout) {
                                     RouteLayout = layout;
                                 }

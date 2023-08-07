@@ -1,5 +1,5 @@
 {
-    "name": "so_tiem_chung",
+    "name": "10education-customer-management",
     "version": "1.0.0",
     "scripts": {
         "start": "PORT=3500 react-app-rewired start",
@@ -11,12 +11,10 @@
     },
     "dependencies": {
         "@adobe/redux-saga-promise": "^1.1.1",
-        "@ant-design/icons": "^4.7.0",
         "@fortawesome/fontawesome-svg-core": "^6.1.1",
         "@fortawesome/free-regular-svg-icons": "^6.1.1",
         "@fortawesome/free-solid-svg-icons": "^6.1.1",
         "@fortawesome/react-fontawesome": "^0.1.18",
-        "antd": "4.20.0-alpha.1",
         "axios": "^0.23.0",
         "connected-react-router": "^6.9.2",
         "cross-env": "^7.0.3",
@@ -27,7 +25,6 @@
         "js-cookie": "^3.0.1",
         "prop-types": "^15.7.2",
         "qrcode": "^1.5.0",
-        "query-string": "^7.1.1",
         "react": "^17.0.2",
         "react-app-rewired": "^2.2.1",
         "react-dom": "^17.0.2",
@@ -38,16 +35,16 @@
         "react-pdf": "^5.7.1",
         "react-redux": "^7.2.5",
         "react-router-dom": "^5.3.0",
-        "react-scripts": "^4.0.3",
+        "react-scripts": "^5.0.1",
+        "react-toastify": "^9.1.3",
         "redux": "^4.1.1",
         "redux-logger": "^3.0.6",
         "redux-saga": "^1.1.3",
         "uuid": "^8.3.2"
     },
     "devDependencies": {
-        "@hot-loader/react-dom": "^17.0.2",
         "babel-eslint": "^10.1.0",
-        "babel-plugin-module-resolver": "^4.1.0",
+        "babel-plugin-module-resolver": "^5.0.0",
         "babel-plugin-transform-remove-console": "^6.9.4",
         "eslint": "^7.11.0",
         "eslint-config-prettier": "^6.11.0",
@@ -57,11 +54,12 @@
         "eslint-plugin-react": "^7.20.3",
         "eslint-plugin-react-hooks": "^4.0.8",
         "husky": "^4.3.0",
-        "i18next-parser": "^5.0.0",
+        "i18next-parser": "^0.13.0",
         "lint-staged": "^10.5.1",
         "prettier": "^2.3.2",
         "redux-devtools-extension": "^2.13.9",
-        "sass": "1.43.2"
+        "sass": "1.43.2",
+        "tailwindcss": "^3.3.3"
     },
     "lint-staged": {
         "src/**/*.{js,json,scss,css}": "prettier --config .prettierrc --write"
